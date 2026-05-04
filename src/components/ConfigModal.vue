@@ -8,7 +8,7 @@ import { useI18n } from '@/composables/useI18n';
 const emit = defineEmits(['close']);
 
 const { config, updateConfig } = useDiceConfig();
-const { t } = useI18n();
+const { t, setLanguage, currentLanguage, supportedLanguages } = useI18n();
 
 const toast = useToast();
 
@@ -200,6 +200,27 @@ const COUNT_OPTIONS = computed(() => [
                                     :class="local.showNumber ? 'translate-x-7' : 'translate-x-1'"
                                 />
                             </div>
+                        </div>
+                    </section>
+
+                    <!-- Secao: Idioma -->
+                    <section>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('common.language') }}</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                v-for="lang in supportedLanguages"
+                                :key="lang.code"
+                                type="button"
+                                class="py-3 px-3 rounded-2xl border-2 transition-all duration-150 font-bold text-sm"
+                                :class="
+                                    currentLanguage === lang.code
+                                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
+                                        : 'border-gray-200 hover:border-gray-300 bg-white text-gray-700'
+                                "
+                                @click="setLanguage(lang.code)"
+                            >
+                                {{ lang.name }}
+                            </button>
                         </div>
                     </section>
 
