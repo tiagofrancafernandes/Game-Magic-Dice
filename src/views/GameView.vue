@@ -4,9 +4,11 @@ import DiceFace from '../components/DiceFace.vue';
 import ConfigModal from '../components/ConfigModal.vue';
 import { useDiceConfig } from '../composables/useDiceConfig';
 import { useDiceRoll } from '../composables/useDiceRoll';
+import { useI18n } from '../composables/useI18n';
 
 const { config } = useDiceConfig();
 const { currentValue, isRolling, shakeKey, roll } = useDiceRoll();
+const { t } = useI18n();
 
 const showConfig = ref(false);
 
@@ -34,12 +36,18 @@ function onTouchEnd(e) {
 
 // Badge do modo atual
 const modeBadge = computed(() => {
-    const map = {
-        classic6: { label: 'Classico 6', emoji: '🎲', color: '#7c3aed' },
-        classic3: { label: 'Classico 3', emoji: '🎯', color: '#0891b2' },
-        custom: { label: 'Personalizado', emoji: '✏️', color: '#059669' },
+    const mode = config.value.mode;
+    const colorMap = {
+        classic6: '#7c3aed',
+        classic3: '#0891b2',
+        custom: '#059669',
     };
-    return map[config.value.mode];
+
+    return {
+        label: t(`modes.${mode}.label`),
+        emoji: t(`modes.${mode}.emoji`),
+        color: colorMap[mode],
+    };
 });
 </script>
 
@@ -103,7 +111,7 @@ const modeBadge = computed(() => {
                 type="button"
                 class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150 active:scale-90"
                 style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px)"
-                aria-label="Configuracoes"
+                :aria-label="t('gameView.configButton')"
                 @click="showConfig = true"
             >
                 <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -142,7 +150,7 @@ const modeBadge = computed(() => {
                     class="text-sm font-semibold select-none pointer-events-none"
                     style="color: rgba(255, 255, 255, 0.55)"
                 >
-                    Toque para rolar 👆
+                    {{ t('gameView.touchHint') }}
                 </p>
             </Transition>
         </div>

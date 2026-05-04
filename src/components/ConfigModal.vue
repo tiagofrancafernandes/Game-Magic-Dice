@@ -3,10 +3,12 @@ import { ref, computed, watch } from 'vue';
 import { useDiceConfig } from '../composables/useDiceConfig';
 import CharPicker from './CharPicker.vue';
 import { useToast } from '@/composables/useToast';
+import { useI18n } from '@/composables/useI18n';
 
 const emit = defineEmits(['close']);
 
 const { config, updateConfig } = useDiceConfig();
+const { t } = useI18n();
 
 const toast = useToast();
 
@@ -42,18 +44,18 @@ const canSave = computed(() => customValuesValid.value);
 function save() {
     try {
         if (!canSave.value) {
-            toast.error('Preencha todos os slots antes de salvar', {
+            toast.error(t('configModal.fillAllSlots'), {
                 autoClose: 1000,
             });
             return;
         }
         updateConfig({ ...local.value });
-        toast.success('Salvo com sucesso!', {
+        toast.success(t('configModal.saveSuccess'), {
             autoClose: 1000,
         });
         emit('close');
     } catch (error) {
-        toast.error('Erro ao salvar', {
+        toast.error(t('configModal.saveError'), {
             autoClose: 1000,
         });
     }
@@ -63,35 +65,53 @@ function cancel() {
     emit('close');
 }
 
-const MODE_OPTIONS = [
+const modeColors = {
+    classic6: '#7c3aed',
+    classic3: '#0891b2',
+    custom: '#059669',
+};
+
+const MODE_OPTIONS = computed(() => [
     {
         value: 'classic6',
-        emoji: '🎲',
-        label: 'Classico 6',
-        desc: '6 faces de 1 a 6',
-        color: '#7c3aed',
+        emoji: t('modes.classic6.emoji'),
+        label: t('modes.classic6.label'),
+        desc: t('modes.classic6.desc'),
+        color: modeColors.classic6,
     },
     {
         value: 'classic3',
-        emoji: '🎯',
-        label: 'Classico 3',
-        desc: '3 faces de 1 a 3',
-        color: '#0891b2',
+        emoji: t('modes.classic3.emoji'),
+        label: t('modes.classic3.label'),
+        desc: t('modes.classic3.desc'),
+        color: modeColors.classic3,
     },
     {
         value: 'custom',
-        emoji: '✏️',
-        label: 'Personalizado',
-        desc: 'Letras e numeros',
-        color: '#059669',
+        emoji: t('modes.custom.emoji'),
+        label: t('modes.custom.label'),
+        desc: t('modes.custom.desc'),
+        color: modeColors.custom,
     },
-];
+]);
 
-const COUNT_OPTIONS = [
-    { value: 2, label: '2 valores', desc: '3 lados cada (50%)' },
-    { value: 3, label: '3 valores', desc: '2 lados cada (33%)' },
-    { value: 6, label: '6 valores', desc: '1 lado cada (17%)' },
-];
+const COUNT_OPTIONS = computed(() => [
+    {
+        value: 2,
+        label: t('count.2.label'),
+        desc: t('count.2.desc'),
+    },
+    {
+        value: 3,
+        label: t('count.3.label'),
+        desc: t('count.3.desc'),
+    },
+    {
+        value: 6,
+        label: t('count.6.label'),
+        desc: t('count.6.desc'),
+    },
+]);
 </script>
 
 <template>
@@ -109,12 +129,12 @@ const COUNT_OPTIONS = [
             >
                 <!-- Header -->
                 <div class="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-100">
-                    <h2 class="text-xl font-black text-gray-900">Configuracoes</h2>
+                    <h2 class="text-xl font-black text-gray-900">{{ t('configModal.title') }}</h2>
                     <button
                         type="button"
                         class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
                         @click="cancel"
-                        aria-label="Fechar"
+                        :aria-label="t('configModal.closeButton')"
                     >
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -126,7 +146,7 @@ const COUNT_OPTIONS = [
                 <div class="overflow-y-auto px-6 py-5 space-y-6" style="max-height: calc(90vh - 140px)">
                     <!-- Secao: Modo de jogo -->
                     <section>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Modo de Jogo</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('configModal.gameMode') }}</p>
                         <div class="grid grid-cols-3 gap-2">
                             <button
                                 v-for="opt in MODE_OPTIONS"
@@ -161,14 +181,14 @@ const COUNT_OPTIONS = [
 
                     <!-- Secao: Mostrar numero (modos classicos) -->
                     <section v-if="local.mode !== 'custom'">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Opcoes Educativas</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('configModal.educationalOptions') }}</p>
                         <div
                             class="flex items-center justify-between p-4 rounded-2xl border border-gray-200 cursor-pointer"
                             @click="local.showNumber = !local.showNumber"
                         >
                             <div>
-                                <p class="font-bold text-gray-800 text-sm">Mostrar numero nas bolinhas</p>
-                                <p class="text-xs text-gray-400 mt-0.5">Exibe o numero em cada bolinha e no total</p>
+                                <p class="font-bold text-gray-800 text-sm">{{ t('configModal.showNumberLabel') }}</p>
+                                <p class="text-xs text-gray-400 mt-0.5">{{ t('configModal.showNumberDesc') }}</p>
                             </div>
                             <!-- Toggle switch -->
                             <div
@@ -188,7 +208,7 @@ const COUNT_OPTIONS = [
                         <!-- Quantidade de valores -->
                         <section>
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                                Quantidade de Valores
+                                {{ t('configModal.quantityOfValues') }}
                             </p>
                             <div class="grid grid-cols-3 gap-2">
                                 <button
@@ -223,13 +243,13 @@ const COUNT_OPTIONS = [
                         <!-- Valores de cada slot -->
                         <section>
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
-                                Valores do Dado
-                                <span class="normal-case font-normal text-gray-400 ml-1">(1 letra ou numero cada)</span>
+                                {{ t('configModal.diceValues') }}
+                                <span class="normal-case font-normal text-gray-400 ml-1">{{ t('configModal.diceValuesHint') }}</span>
                             </p>
                             <div class="space-y-4">
                                 <div v-for="(_, idx) in local.customValues" :key="idx" class="flex items-start gap-3">
                                     <span class="mt-3 text-xs font-black text-gray-400 w-10 text-right flex-shrink-0">
-                                        #{{ idx + 1 }}
+                                        {{ t('configModal.slot') }}{{ idx + 1 }}
                                     </span>
                                     <div class="flex-1">
                                         <CharPicker v-model="local.customValues[idx]" :slotIndex="idx" />
@@ -243,7 +263,7 @@ const COUNT_OPTIONS = [
                                 class="mt-3 text-xs text-amber-600 font-semibold flex items-center gap-1"
                             >
                                 <span>⚠️</span>
-                                Todos os slots precisam ser preenchidos para salvar.
+                                {{ t('configModal.emptySlotWarning') }}
                             </p>
                         </section>
                     </template>
@@ -256,7 +276,7 @@ const COUNT_OPTIONS = [
                         class="flex-1 py-3 rounded-2xl font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
                         @click="cancel"
                     >
-                        Cancelar
+                        {{ t('configModal.cancelButton') }}
                     </button>
                     <button
                         type="button"
@@ -269,7 +289,7 @@ const COUNT_OPTIONS = [
                         :disabled="!canSave"
                         @click="save"
                     >
-                        Salvar
+                        {{ t('configModal.saveButton') }}
                     </button>
                 </div>
             </div>
