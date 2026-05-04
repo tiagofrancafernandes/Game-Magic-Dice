@@ -72,7 +72,7 @@ Ou use https://realfavicongenerator.net para gerar todos os tamanhos.
 
 ```bash
 npm install @capacitor/core @capacitor/cli @capacitor/android
-npx cap init "Dado Magico" "com.tiago.dadomagico" --web-dir=dist
+npx cap init "Dado Magico" "com.tiagofranca.dadomagico" --web-dir=dist
 npm run build
 npx cap add android
 npx cap sync
