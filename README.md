@@ -1,6 +1,8 @@
-# 🎲 Dado Magico
+# 🎲 Dado Mágico
 
-Jogo de dado educativo e ludico para criancas. PWA instalavel no celular.
+An educational and playful dice game for children. Progressive Web App (PWA) installable on mobile devices.
+
+**[📖 Leia em Português](./README.pt-BR.md)**
 
 ---
 
@@ -10,114 +12,89 @@ Jogo de dado educativo e ludico para criancas. PWA instalavel no celular.
 - **Vite** + `vite-plugin-pwa`
 - **TailwindCSS** v3
 - **vue-router** v4
-- Config persistida no **localStorage**
+- **i18n** support for pt-BR and en-US
+- Config persisted with **localStorage**
 
 ---
 
-## Setup rapido
+## Quick Setup
 
 ```bash
-# 1. Instalar dependencias
+# 1. Install dependencies
 npm install
 
-# 2. Rodar em desenvolvimento
+# 2. Run development server
 npm run dev
 
-# 3. Build de producao
+# 3. Build for production
 npm run build
 
-# 4. Visualizar build
+# 4. Preview production build
 npm run preview
 ```
 
 ---
 
-## Icones PWA (obrigatorio para producao)
+## Install as Mobile App (PWA)
 
-O vite-plugin-pwa precisa dos arquivos de icone em `/public/`:
-
-```
-public/
-  pwa-192x192.png
-  pwa-512x512.png
-  apple-touch-icon.png   (180x180)
-```
-
-Opcao rapida: gerar a partir do `dice.svg` com o pacote `sharp`:
-
-```bash
-npm install -D sharp
-node -e "
-const sharp = require('sharp');
-sharp('public/dice.svg').resize(192).png().toFile('public/pwa-192x192.png');
-sharp('public/dice.svg').resize(512).png().toFile('public/pwa-512x512.png');
-sharp('public/dice.svg').resize(180).png().toFile('public/apple-touch-icon.png');
-"
-```
-
-Ou use https://realfavicongenerator.net para gerar todos os tamanhos.
+1. Run `npm run build` and serve `/dist` with HTTPS (e.g., Vercel, Netlify, or `vite preview`)
+2. Open on Chrome/Safari on mobile
+3. **Chrome Android**: Menu → "Add to home screen"
+4. **Safari iOS**: Share button → "Add to Home Screen"
 
 ---
 
-## Instalar como app no celular (PWA)
+## Game Modes
 
-1. Rodar `npm run build` e servir o `/dist` com HTTPS (ex: Vercel, Netlify, ou `vite preview`)
-2. Abrir no Chrome/Safari no celular
-3. Chrome Android: menu "Adicionar a tela inicial"
-4. Safari iOS: botao Compartilhar -> "Adicionar a Tela de Inicio"
+| Mode | Faces | Display |
+|------|-------|---------|
+| Classic 6 | 1 to 6 | Colorful dots in authentic dice layout |
+| Classic 3 | 1 to 3 | Colorful dots (3 possible faces) |
+| Custom | 2, 3 or 6 values | Letter or number highlighted |
 
----
-
-## Empacotamento com Capacitor (futuro - para APK/IPA)
-
-```bash
-npm install @capacitor/core @capacitor/cli @capacitor/android
-npx cap init "Dado Magico" "com.tiagofranca.dadomagico" --web-dir=dist
-npm run build
-npx cap add android
-npx cap sync
-npx cap open android   # abre no Android Studio para gerar APK
-```
+### Side Distribution (Custom Mode)
+- 2 values: 3 sides each (50% / 50%)
+- 3 values: 2 sides each (33% each)
+- 6 values: 1 side each (17% each)
 
 ---
 
-## Modos de jogo
+## Internationalization (i18n)
 
-| Modo | Faces | Visual |
-|------|-------|--------|
-| Classico 6 | 1 a 6 | Bolinhas coloridas no layout real de dado |
-| Classico 3 | 1 a 3 | Bolinhas coloridas (3 faces possiveis) |
-| Personalizado | 2, 3 ou 6 valores | Letra ou numero em destaque |
+The app automatically detects your browser language and displays:
+- **Portuguese (pt-BR)** - Full localization available
+- **English (en-US)** - Complete translation provided
 
-### Distribuicao de lados (modo personalizado)
-- 2 valores: 3 lados cada (50% / 50%)
-- 3 valores: 2 lados cada (33% cada)
-- 6 valores: 1 lado cada (17% cada)
+Supported strings include game modes, buttons, UI labels, and all configuration options.
 
 ---
 
-## Futuro / ideias anotadas
+## Future Features
 
-- [ ] TTS com Web Speech API (`speechSynthesis`) para falar a letra/numero que saiu
-- [ ] Efeito sonoro de chacoalhar (Web Audio API)
-- [ ] Historico dos ultimos resultados
-- [ ] Modo "desafio" com perguntas relacionadas ao valor sorteado
+- [ ] TTS with Web Speech API (`speechSynthesis`) to vocalize rolled values
+- [ ] Shake sound effect using Web Audio API
+- [ ] History of recent rolls
+- [ ] Challenge mode with questions tied to dice values
 
 ---
 
-## Estrutura
+## Project Structure
 
 ```
 src/
   views/
-    GameView.vue          - Tela principal
+    GameView.vue          - Main game screen
   components/
-    DiceFace.vue          - Visual do dado com pips ou valor custom
-    ConfigModal.vue       - Modal de configuracao
-    CharPicker.vue        - Seletor de letra/numero para modo custom
+    DiceFace.vue          - Dice visual (pips or custom values)
+    ConfigModal.vue       - Settings dialog
+    CharPicker.vue        - Character/number selector for custom mode
   composables/
-    useDiceConfig.js      - Config + localStorage (estado singleton)
-    useDiceRoll.js        - Logica de roll com animacao
+    useDiceConfig.js      - Config state + localStorage (singleton)
+    useDiceRoll.js        - Roll animation logic
+    useI18n.js            - Internationalization composable
+  locales/
+    pt-BR.json            - Portuguese translations
+    en-US.json            - English translations
   router/
     index.js
   App.vue
@@ -125,4 +102,13 @@ src/
   style.css
 public/
   dice.svg
+  pwa-192x192.png
+  pwa-512x512.png
+  apple-touch-icon.png
 ```
+
+---
+
+## Contributing
+
+Feel free to fork, submit issues, or contribute enhancements. All game modes and UI are translatable through the i18n system.
