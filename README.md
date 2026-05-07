@@ -11,6 +11,7 @@ An educational and playful dice game for children. Progressive Web App (PWA) ins
 - **Vue 3** + Composition API (`<script setup>`)
 - **Vite** + `vite-plugin-pwa`
 - **TailwindCSS** v3
+- **GSAP** for the dice roll animation
 - **vue-router** v4
 - **i18n** support for pt-BR and en-US
 - Config persisted with **localStorage**

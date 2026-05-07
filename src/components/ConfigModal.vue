@@ -158,8 +158,9 @@ const COUNT_OPTIONS = computed(() => [
                                 class="min-h-4 py-3 px-3 rounded-2xl border-2 transition-all duration-150 font-bold text-sm"
                                 :class="{
                                     'border-blue-500 bg-blue-50 text-blue-700 shadow-sm': currentLanguage === lang.code,
-                                    'border-gray-200 hover:border-gray-300 bg-white text-gray-700':  currentLanguage !== lang.code,
-                                }"boraboreesds
+                                    'border-gray-200 hover:border-gray-300 bg-white text-gray-700':
+                                        currentLanguage !== lang.code,
+                                }"
                                 @click="setLanguage(lang.code)"
                             >
                                 {{ lang.name }}

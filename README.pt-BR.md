@@ -11,6 +11,7 @@ Jogo de dado educativo e lúdico para crianças. PWA instalável no celular.
 - **Vue 3** + Composition API (`<script setup>`)
 - **Vite** + `vite-plugin-pwa`
 - **TailwindCSS** v3
+- **GSAP** para a animação de rolagem do dado
 - **vue-router** v4
 - **i18n** com suporte a pt-BR e en-US
 - Config persistida no **localStorage**

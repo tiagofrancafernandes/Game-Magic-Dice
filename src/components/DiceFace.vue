@@ -1,14 +1,24 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { gsap } from 'gsap';
 
 const props = defineProps({
     value: { type: [Number, String], required: true },
+    targetValue: { type: [Number, String], default: null },
     mode: { type: String, required: true },
     showNumberForEach: { type: Boolean, default: false },
     showItemsCounter: { type: Boolean, default: true },
     isRolling: { type: Boolean, default: false },
     shakeKey: { type: Number, default: 0 },
 });
+
+const sceneElement = ref(null);
+
+const diceElement = ref(null);
+
+const valueElement = ref(null);
+
+let rollTimeline = null;
 
 // Cores vibrantes e distintas para cada pip (idx 0-5)
 const PIP_COLORS = [
@@ -59,9 +69,16 @@ const PIP_POSITIONS = {
 };
 
 const pips = computed(() => {
-    if (props.mode === 'custom') return [];
+    if (props.mode === 'custom') {
+        return [];
+    }
+
     const positions = PIP_POSITIONS[props.value];
-    if (!positions) return [];
+
+    if (!positions) {
+        return [];
+    }
+
     return positions.map((pos, idx) => ({
         top: pos[0],
         left: pos[1],
@@ -76,24 +93,226 @@ const isClassic = computed(() => props.mode !== 'custom');
 // Tamanho da fonte do valor custom
 const customFontSize = computed(() => {
     const v = String(props.value);
-    if (v.length === 1) return 'clamp(5rem, 22vw, 9rem)';
+
+    if (v.length === 1) {
+        return 'clamp(5rem, 22vw, 9rem)';
+    }
+
     return 'clamp(3rem, 14vw, 6rem)';
+});
+
+const FACE_ROTATIONS = {
+    classic6: {
+        1: { rotateX: 0, rotateY: 0 },
+        2: { rotateX: 0, rotateY: 180 },
+        3: { rotateX: 0, rotateY: -90 },
+        4: { rotateX: 0, rotateY: 90 },
+        5: { rotateX: -90, rotateY: 0 },
+        6: { rotateX: 90, rotateY: 0 },
+    },
+    classic3: {
+        1: { rotateX: 0, rotateY: 0 },
+        2: { rotateX: 0, rotateY: 180 },
+        3: { rotateX: 0, rotateY: -90 },
+    },
+    custom: {
+        rotateX: -16,
+        rotateY: 22,
+    },
+};
+
+function randomBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getTargetRotation() {
+    if (props.mode === 'custom') {
+        return FACE_ROTATIONS.custom;
+    }
+
+    const modeRotations = FACE_ROTATIONS[props.mode];
+
+    if (!modeRotations) {
+        return FACE_ROTATIONS.custom;
+    }
+
+    const resolvedValue =
+        props.targetValue === null || props.targetValue === undefined ? props.value : props.targetValue;
+
+    const target = modeRotations[resolvedValue];
+
+    if (!target) {
+        return FACE_ROTATIONS.custom;
+    }
+
+    return target;
+}
+
+function pulseValue() {
+    if (!valueElement.value) {
+        return;
+    }
+
+    gsap.killTweensOf(valueElement.value);
+
+    gsap.fromTo(
+        valueElement.value,
+        {
+            scale: 0.82,
+            opacity: 0.65,
+        },
+        {
+            scale: 1,
+            opacity: 1,
+            duration: 0.35,
+            ease: 'back.out(3)',
+        }
+    );
+}
+
+function animateRoll() {
+    if (!sceneElement.value) {
+        return;
+    }
+
+    if (!diceElement.value) {
+        return;
+    }
+
+    if (rollTimeline) {
+        rollTimeline.kill();
+    }
+
+    const targetRotation = getTargetRotation();
+    const spinX = randomBetween(720, 1080);
+    const spinY = randomBetween(720, 1260);
+    const lift = randomBetween(18, 30);
+
+    rollTimeline = gsap.timeline({
+        defaults: {
+            ease: 'power3.out',
+        },
+    });
+
+    rollTimeline.set(sceneElement.value, {
+        y: 0,
+    });
+
+    rollTimeline.to(
+        sceneElement.value,
+        {
+            y: -lift,
+            duration: 0.24,
+            ease: 'power2.out',
+        },
+        0
+    );
+
+    rollTimeline.to(
+        sceneElement.value,
+        {
+            y: 0,
+            duration: 0.48,
+            ease: 'bounce.out',
+        },
+        0.24
+    );
+
+    rollTimeline.to(
+        diceElement.value,
+        {
+            rotateX: targetRotation.rotateX + spinX,
+            rotateY: targetRotation.rotateY + spinY,
+            scale: 1.05,
+            duration: 1,
+        },
+        0
+    );
+
+    rollTimeline.to(
+        diceElement.value,
+        {
+            scale: 1,
+            duration: 0.2,
+            ease: 'power2.out',
+        },
+        0.86
+    );
+
+    rollTimeline.add(() => {
+        gsap.set(diceElement.value, {
+            rotateX: targetRotation.rotateX,
+            rotateY: targetRotation.rotateY,
+            scale: 1,
+        });
+    });
+}
+
+onMounted(() => {
+    if (sceneElement.value) {
+        gsap.set(sceneElement.value, {
+            perspective: 1400,
+        });
+    }
+
+    if (diceElement.value) {
+        gsap.set(diceElement.value, {
+            rotateX: FACE_ROTATIONS.custom.rotateX,
+            rotateY: FACE_ROTATIONS.custom.rotateY,
+            scale: 1,
+            transformStyle: 'preserve-3d',
+            transformOrigin: 'center center',
+        });
+    }
+});
+
+watch(
+    () => props.shakeKey,
+    () => {
+        animateRoll();
+    }
+);
+
+watch(
+    () => props.isRolling,
+    (isRolling, wasRolling) => {
+        if (!wasRolling || isRolling) {
+            return;
+        }
+
+        pulseValue();
+    }
+);
+
+onBeforeUnmount(() => {
+    if (rollTimeline) {
+        rollTimeline.kill();
+        rollTimeline = null;
+    }
+
+    if (!sceneElement.value) {
+        return;
+    }
+
+    gsap.killTweensOf(sceneElement.value);
+
+    if (!diceElement.value) {
+        return;
+    }
+
+    gsap.killTweensOf(diceElement.value);
 });
 </script>
 
 <template>
-    <!--
-    Wrapper com :key="shakeKey" para reiniciar a animacao a cada roll.
-    A animacao e aplicada via inline style para garantir restart.
-  -->
     <div
-        :key="shakeKey"
-        class="relative cursor-pointer select-none touch-manipulation"
-        :style="isRolling ? { animation: 'dice-shake 0.65s ease-in-out' } : {}"
+        ref="sceneElement"
+        class="relative cursor-pointer select-none touch-none [perspective:1400px]"
     >
         <!-- Face do dado -->
         <div
-            class="relative overflow-hidden transition-transform duration-75 active:scale-95"
+            ref="diceElement"
+            class="relative overflow-hidden transition-transform duration-75 active:scale-95 transform-gpu"
             style="
                 width: min(72vw, 320px);
                 height: min(72vw, 320px);
@@ -157,6 +376,7 @@ const customFontSize = computed(() => {
                 <Transition name="badge">
                     <div
                         v-if="showItemsCounter"
+                        ref="valueElement"
                         class="absolute bottom-3 right-3 flex items-center justify-center rounded-full"
                         style="
                             width: 36px;
@@ -176,6 +396,7 @@ const customFontSize = computed(() => {
             <template v-else>
                 <div class="absolute inset-0 flex items-center justify-center">
                     <span
+                        ref="valueElement"
                         class="font-black leading-none select-none transition-all duration-75"
                         style="color: #7c3aed"
                         :style="{ fontSize: customFontSize }"

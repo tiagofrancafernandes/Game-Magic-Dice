@@ -7,7 +7,7 @@ import { useDiceRoll } from '../composables/useDiceRoll';
 import { useI18n } from '../composables/useI18n';
 
 const { config } = useDiceConfig();
-const { currentValue, isRolling, shakeKey, roll } = useDiceRoll();
+const { currentValue, plannedValue, isRolling, shakeKey, roll } = useDiceRoll();
 const { t } = useI18n();
 
 const showConfig = ref(false);
@@ -136,6 +136,7 @@ const modeBadge = computed(() => {
             <div :class="{ 'animate-rolling': !isRolling }">
                 <DiceFace
                     :value="currentValue"
+                    :targetValue="plannedValue"
                     :mode="config.mode"
                     :showNumberForEach="config.showNumberForEach"
                     :showItemsCounter="config.showItemsCounter"

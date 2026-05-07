@@ -3,6 +3,7 @@
 - **Framework**: Vue 3.5+ with Composition API
 - **Build Tool**: Vite
 - **Styling**: TailwindCSS v4
+- **Animation**: GSAP for the dice roll motion
 - **Routing**: Vue Router 4
 - **Code Style**: Prettier
 
