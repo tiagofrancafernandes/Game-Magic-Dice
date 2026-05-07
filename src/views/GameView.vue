@@ -137,7 +137,8 @@ const modeBadge = computed(() => {
                 <DiceFace
                     :value="currentValue"
                     :mode="config.mode"
-                    :showNumber="config.showNumber"
+                    :showNumberForEach="config.showNumberForEach"
+                    :showItemsCounter="config.showItemsCounter"
                     :isRolling="isRolling"
                     :shakeKey="shakeKey"
                 />

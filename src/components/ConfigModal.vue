@@ -15,7 +15,8 @@ const toast = useToast();
 // Estado local: copia do config para editar sem commitar em tempo real
 const local = ref({
     mode: config.value.mode,
-    showNumber: config.value.showNumber,
+    showNumberForEach: config.value.showNumberForEach,
+    showItemsCounter: config.value.showItemsCounter,
     customCount: config.value.customCount,
     customValues: [...config.value.customValues],
 });
@@ -146,7 +147,9 @@ const COUNT_OPTIONS = computed(() => [
                 <div class="overflow-y-auto px-6 py-5 space-y-6" style="max-height: calc(90vh - 140px)">
                     <!-- Secao: Modo de jogo -->
                     <section>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('configModal.gameMode') }}</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            {{ t('configModal.gameMode') }}
+                        </p>
                         <div class="grid grid-cols-3 gap-2">
                             <button
                                 v-for="opt in MODE_OPTIONS"
@@ -179,12 +182,15 @@ const COUNT_OPTIONS = computed(() => [
                         </div>
                     </section>
 
-                    <!-- Secao: Mostrar numero (modos classicos) -->
                     <section v-if="local.mode !== 'custom'">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('configModal.educationalOptions') }}</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            {{ t('configModal.educationalOptions') }}
+                        </p>
+
+                        <!-- Secao: Mostrar numero (modos classicos) -->
                         <div
                             class="flex items-center justify-between p-4 rounded-2xl border border-gray-200 cursor-pointer"
-                            @click="local.showNumber = !local.showNumber"
+                            @click="local.showNumberForEach = !local.showNumberForEach"
                         >
                             <div>
                                 <p class="font-bold text-gray-800 text-sm">{{ t('configModal.showNumberLabel') }}</p>
@@ -193,11 +199,36 @@ const COUNT_OPTIONS = computed(() => [
                             <!-- Toggle switch -->
                             <div
                                 class="relative w-12 h-6 rounded-full transition-colors duration-200 flex-shrink-0"
-                                :class="local.showNumber ? 'bg-violet-600' : 'bg-gray-300'"
+                                :class="local.showNumberForEach ? 'bg-violet-600' : 'bg-gray-300'"
                             >
                                 <div
                                     class="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200"
-                                    :class="local.showNumber ? 'translate-x-7' : 'translate-x-1'"
+                                    :class="local.showNumberForEach ? 'translate-x-7' : 'translate-x-1'"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="w-full py-2"></div>
+
+                        <!-- Secao: Mostrar total de itens (modos classicos) -->
+                        <div
+                            class="flex items-center justify-between p-4 rounded-2xl border border-gray-200 cursor-pointer"
+                            @click="local.showItemsCounter = !local.showItemsCounter"
+                        >
+                            <div>
+                                <p class="font-bold text-gray-800 text-sm">
+                                    {{ t('configModal.showItemsCounterLabel') }}
+                                </p>
+                                <p class="text-xs text-gray-400 mt-0.5">{{ t('configModal.showItemsCounterDesc') }}</p>
+                            </div>
+                            <!-- Toggle switch -->
+                            <div
+                                class="relative w-12 h-6 rounded-full transition-colors duration-200 flex-shrink-0"
+                                :class="local.showItemsCounter ? 'bg-violet-600' : 'bg-gray-300'"
+                            >
+                                <div
+                                    class="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200"
+                                    :class="local.showItemsCounter ? 'translate-x-7' : 'translate-x-1'"
                                 />
                             </div>
                         </div>
@@ -205,7 +236,9 @@ const COUNT_OPTIONS = computed(() => [
 
                     <!-- Secao: Idioma -->
                     <section>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">{{ t('common.language') }}</p>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            {{ t('common.language') }}
+                        </p>
                         <div class="grid grid-cols-2 gap-2">
                             <button
                                 v-for="lang in supportedLanguages"
@@ -265,7 +298,9 @@ const COUNT_OPTIONS = computed(() => [
                         <section>
                             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
                                 {{ t('configModal.diceValues') }}
-                                <span class="normal-case font-normal text-gray-400 ml-1">{{ t('configModal.diceValuesHint') }}</span>
+                                <span class="normal-case font-normal text-gray-400 ml-1">
+                                    {{ t('configModal.diceValuesHint') }}
+                                </span>
                             </p>
                             <div class="space-y-4">
                                 <div v-for="(_, idx) in local.customValues" :key="idx" class="flex items-start gap-3">

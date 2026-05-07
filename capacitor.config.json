@@ -1,5 +1,5 @@
 {
-  "appId": "com.tiagofranca.dadomagico",
-  "appName": "Dado Magico",
-  "webDir": "dist"
+    "appId": "com.tiagofranca.dadomagico",
+    "appName": "Dado Magico",
+    "webDir": "dist"
 }

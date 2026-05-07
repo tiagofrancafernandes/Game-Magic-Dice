@@ -4,7 +4,8 @@ const STORAGE_KEY = 'dado-magico-v1';
 
 const DEFAULT_CONFIG = {
     mode: 'classic6', // 'classic6' | 'classic3' | 'custom'
-    showNumber: false, // mostra numero total no badge (modos classicos)
+    showNumberForEach: false, // mostra o número para cada bolinha (modos classicos)
+    showItemsCounter: true, // mostra número total no badge (modos classicos)
     customCount: 2, // 2 | 3 | 6 (modo custom)
     customValues: ['A', 'B'], // array de strings com customCount itens
 };

@@ -1,58 +1,60 @@
 {
-  "modes": {
-    "classic6": {
-      "label": "Classic 6",
-      "emoji": "🎲",
-      "desc": "6 faces from 1 to 6"
+    "modes": {
+        "classic6": {
+            "label": "Classic 6",
+            "emoji": "🎲",
+            "desc": "6 faces from 1 to 6"
+        },
+        "classic3": {
+            "label": "Classic 3",
+            "emoji": "🎯",
+            "desc": "3 faces from 1 to 3"
+        },
+        "custom": {
+            "label": "Custom",
+            "emoji": "✏️",
+            "desc": "Letters and numbers"
+        }
     },
-    "classic3": {
-      "label": "Classic 3",
-      "emoji": "🎯",
-      "desc": "3 faces from 1 to 3"
+    "count": {
+        "2": {
+            "label": "2 values",
+            "desc": "3 sides each (50%)"
+        },
+        "3": {
+            "label": "3 values",
+            "desc": "2 sides each (33%)"
+        },
+        "6": {
+            "label": "6 values",
+            "desc": "1 side each (17%)"
+        }
     },
-    "custom": {
-      "label": "Custom",
-      "emoji": "✏️",
-      "desc": "Letters and numbers"
+    "gameView": {
+        "configButton": "Settings",
+        "touchHint": "Tap to roll 👆"
+    },
+    "configModal": {
+        "title": "Settings",
+        "closeButton": "Close",
+        "gameMode": "Game Mode",
+        "educationalOptions": "Educational Options",
+        "showNumberLabel": "Show number on dots",
+        "showNumberDesc": "Displays the number on each dot",
+        "showItemsCounterLabel": "Show total of items",
+        "showItemsCounterDesc": "Displays a total of items",
+        "quantityOfValues": "Quantity of Values",
+        "diceValues": "Dice Values",
+        "diceValuesHint": "(1 letter or number each)",
+        "slot": "#",
+        "emptySlotWarning": "All slots must be filled to save.",
+        "cancelButton": "Cancel",
+        "saveButton": "Save",
+        "saveSuccess": "Saved successfully!",
+        "saveError": "Error saving",
+        "fillAllSlots": "Fill all slots before saving"
+    },
+    "common": {
+        "language": "Language"
     }
-  },
-  "count": {
-    "2": {
-      "label": "2 values",
-      "desc": "3 sides each (50%)"
-    },
-    "3": {
-      "label": "3 values",
-      "desc": "2 sides each (33%)"
-    },
-    "6": {
-      "label": "6 values",
-      "desc": "1 side each (17%)"
-    }
-  },
-  "gameView": {
-    "configButton": "Settings",
-    "touchHint": "Tap to roll 👆"
-  },
-  "configModal": {
-    "title": "Settings",
-    "closeButton": "Close",
-    "gameMode": "Game Mode",
-    "educationalOptions": "Educational Options",
-    "showNumberLabel": "Show number on dots",
-    "showNumberDesc": "Displays the number on each dot and total",
-    "quantityOfValues": "Quantity of Values",
-    "diceValues": "Dice Values",
-    "diceValuesHint": "(1 letter or number each)",
-    "slot": "#",
-    "emptySlotWarning": "All slots must be filled to save.",
-    "cancelButton": "Cancel",
-    "saveButton": "Save",
-    "saveSuccess": "Saved successfully!",
-    "saveError": "Error saving",
-    "fillAllSlots": "Fill all slots before saving"
-  },
-  "common": {
-    "language": "Language"
-  }
 }

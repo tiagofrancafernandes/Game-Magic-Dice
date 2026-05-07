@@ -1,58 +1,60 @@
 {
-  "modes": {
-    "classic6": {
-      "label": "Clássico 6",
-      "emoji": "🎲",
-      "desc": "6 faces de 1 a 6"
+    "modes": {
+        "classic6": {
+            "label": "Clássico 6",
+            "emoji": "🎲",
+            "desc": "6 faces de 1 a 6"
+        },
+        "classic3": {
+            "label": "Clássico 3",
+            "emoji": "🎯",
+            "desc": "3 faces de 1 a 3"
+        },
+        "custom": {
+            "label": "Personalizado",
+            "emoji": "✏️",
+            "desc": "Letras e números"
+        }
     },
-    "classic3": {
-      "label": "Clássico 3",
-      "emoji": "🎯",
-      "desc": "3 faces de 1 a 3"
+    "count": {
+        "2": {
+            "label": "2 valores",
+            "desc": "3 lados cada (50%)"
+        },
+        "3": {
+            "label": "3 valores",
+            "desc": "2 lados cada (33%)"
+        },
+        "6": {
+            "label": "6 valores",
+            "desc": "1 lado cada (17%)"
+        }
     },
-    "custom": {
-      "label": "Personalizado",
-      "emoji": "✏️",
-      "desc": "Letras e números"
+    "gameView": {
+        "configButton": "Configurações",
+        "touchHint": "Toque para rolar 👆"
+    },
+    "configModal": {
+        "title": "Configurações",
+        "closeButton": "Fechar",
+        "gameMode": "Modo de Jogo",
+        "educationalOptions": "Opções Educativas",
+        "showNumberLabel": "Mostrar número nas bolinhas",
+        "showNumberDesc": "Exibe o número em cada bolinha e no total",
+        "showItemsCounterLabel": "Mostrar total de itens",
+        "showItemsCounterDesc": "Exibe o número total de itens apresentados",
+        "quantityOfValues": "Quantidade de Valores",
+        "diceValues": "Valores do Dado",
+        "diceValuesHint": "(1 letra ou número cada)",
+        "slot": "#",
+        "emptySlotWarning": "Todos os slots precisam ser preenchidos para salvar.",
+        "cancelButton": "Cancelar",
+        "saveButton": "Salvar",
+        "saveSuccess": "Salvo com sucesso!",
+        "saveError": "Erro ao salvar",
+        "fillAllSlots": "Preencha todos os slots antes de salvar"
+    },
+    "common": {
+        "language": "Idioma"
     }
-  },
-  "count": {
-    "2": {
-      "label": "2 valores",
-      "desc": "3 lados cada (50%)"
-    },
-    "3": {
-      "label": "3 valores",
-      "desc": "2 lados cada (33%)"
-    },
-    "6": {
-      "label": "6 valores",
-      "desc": "1 lado cada (17%)"
-    }
-  },
-  "gameView": {
-    "configButton": "Configurações",
-    "touchHint": "Toque para rolar 👆"
-  },
-  "configModal": {
-    "title": "Configurações",
-    "closeButton": "Fechar",
-    "gameMode": "Modo de Jogo",
-    "educationalOptions": "Opções Educativas",
-    "showNumberLabel": "Mostrar número nas bolinhas",
-    "showNumberDesc": "Exibe o número em cada bolinha e no total",
-    "quantityOfValues": "Quantidade de Valores",
-    "diceValues": "Valores do Dado",
-    "diceValuesHint": "(1 letra ou número cada)",
-    "slot": "#",
-    "emptySlotWarning": "Todos os slots precisam ser preenchidos para salvar.",
-    "cancelButton": "Cancelar",
-    "saveButton": "Salvar",
-    "saveSuccess": "Salvo com sucesso!",
-    "saveError": "Erro ao salvar",
-    "fillAllSlots": "Preencha todos os slots antes de salvar"
-  },
-  "common": {
-    "language": "Idioma"
-  }
 }

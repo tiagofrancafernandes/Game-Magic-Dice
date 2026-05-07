@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { registerSW } from 'virtual:pwa-register';
 import App from './App.vue';
 import GameView from './views/GameView.vue';
 import ToastPlugin from '@/plugins/toast';
@@ -23,12 +24,12 @@ app.use(ToastPlugin, {
     autoClose: 8000,
 });
 
-for (let [compName, compObj] of Object.entries(components)) {
-    app.component(compName, compObj);
-}
-
 Object.keys(components).forEach((key) => {
     app.component(key, components[key]);
+});
+
+registerSW({
+    immediate: true,
 });
 
 app.mount('#app');

@@ -4,7 +4,8 @@ import { computed } from 'vue';
 const props = defineProps({
     value: { type: [Number, String], required: true },
     mode: { type: String, required: true },
-    showNumber: { type: Boolean, default: false },
+    showNumberForEach: { type: Boolean, default: false },
+    showItemsCounter: { type: Boolean, default: true },
     isRolling: { type: Boolean, default: false },
     shakeKey: { type: Number, default: 0 },
 });
@@ -139,7 +140,7 @@ const customFontSize = computed(() => {
                         }"
                     >
                         <span
-                            v-if="showNumber"
+                            v-if="showNumberForEach"
                             class="font-black leading-none select-none"
                             style="
                                 font-size: clamp(0.75rem, 3.5vw, 1.1rem);
@@ -152,10 +153,10 @@ const customFontSize = computed(() => {
                     </div>
                 </TransitionGroup>
 
-                <!-- Badge numero total (exibido quando showNumber ativo) -->
+                <!-- Badge numero total (exibido quando showItemsCounter ativo) -->
                 <Transition name="badge">
                     <div
-                        v-if="showNumber"
+                        v-if="showItemsCounter"
                         class="absolute bottom-3 right-3 flex items-center justify-center rounded-full"
                         style="
                             width: 36px;
