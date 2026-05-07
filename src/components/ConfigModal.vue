@@ -125,7 +125,7 @@ const COUNT_OPTIONS = computed(() => [
         >
             <!-- Modal -->
             <div
-                class="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden"
+                class="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden sm:mb-8"
                 style="max-height: 90vh; box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3)"
             >
                 <!-- Header -->
@@ -245,11 +245,10 @@ const COUNT_OPTIONS = computed(() => [
                                 :key="lang.code"
                                 type="button"
                                 class="py-3 px-3 rounded-2xl border-2 transition-all duration-150 font-bold text-sm"
-                                :class="
-                                    currentLanguage === lang.code
-                                        ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm'
-                                        : 'border-gray-200 hover:border-gray-300 bg-white text-gray-700'
-                                "
+                                :class="{
+                                    'border-blue-500 bg-blue-50 text-blue-700 shadow-sm': currentLanguage === lang.code,
+                                    'border-gray-200 hover:border-gray-300 bg-white text-gray-700':  currentLanguage !== lang.code,
+                                }"
                                 @click="setLanguage(lang.code)"
                             >
                                 {{ lang.name }}
