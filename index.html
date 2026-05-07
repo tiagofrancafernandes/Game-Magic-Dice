@@ -7,7 +7,7 @@
         <meta name="theme-color" content="#7c3aed" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Dado Magico" />
+        <meta name="apple-mobile-web-app-title" content="Magic Dice" />
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,7 +16,30 @@
             href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
             rel="stylesheet"
         />
-        <title>Dado Magico</title>
+        <script>
+            (function () {
+                const isPortuguese = navigator.language && navigator.language.startsWith('pt');
+                const lang = isPortuguese ? 'pt-BR' : 'en';
+                const manifestHref = isPortuguese ? '/manifest-pt.webmanifest' : '/manifest-en.webmanifest';
+
+                document.documentElement.lang = lang;
+
+                const existingManifest = document.querySelector('link[rel="manifest"]');
+
+                if (existingManifest) {
+                    existingManifest.href = manifestHref;
+                    return;
+                }
+
+                const manifest = document.createElement('link');
+                manifest.id = 'app-manifest';
+                manifest.rel = 'manifest';
+                manifest.href = manifestHref;
+
+                document.head.appendChild(manifest);
+            })();
+        </script>
+        <title>Magic Dice</title>
     </head>
     <body>
         <div id="app"></div>

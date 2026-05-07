@@ -54,6 +54,9 @@
         "saveError": "Erro ao salvar",
         "fillAllSlots": "Preencha todos os slots antes de salvar"
     },
+    "app": {
+        "title": "Dado Mágico"
+    },
     "common": {
         "language": "Idioma"
     }

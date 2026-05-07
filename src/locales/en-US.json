@@ -54,6 +54,9 @@
         "saveError": "Error saving",
         "fillAllSlots": "Fill all slots before saving"
     },
+    "app": {
+        "title": "Magic Dice"
+    },
     "common": {
         "language": "Language"
     }

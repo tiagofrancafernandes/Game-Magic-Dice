@@ -5,6 +5,7 @@
 - **Styling**: TailwindCSS v4
 - **Routing**: Vue Router 4
 - **Code Style**: Prettier
+- **Localization**: pt-BR and en-US via `src/composables/useI18n.js`, with locale-aware document title, HTML lang, and PWA manifest selection
 
 ## Development Commands
 
@@ -112,6 +113,12 @@ VITE_API_URL=http://api.local.tiagoapps.com.br
 ```
 
 Access in code: `import.meta.env.VITE_API_URL`
+
+## PWA and Android Localization
+
+- Locale-specific web manifests live in `public/manifest-pt.webmanifest` and `public/manifest-en.webmanifest`
+- `src/main.js` keeps the active locale in sync with `document.documentElement.lang` and the page title
+- Android app labels are localized with `android/app/src/main/res/values/strings.xml` and `android/app/src/main/res/values-pt/strings.xml`
 
 ### Toast messages
 

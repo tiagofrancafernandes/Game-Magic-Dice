@@ -17,6 +17,7 @@ npm install
 ## Project Overview
 
 **Dado Magico** is an educational dice game PWA (Progressive Web App) for children, built with Vue 3, Vite, and TailwindCSS.
+The app supports pt-BR and en-US, and keeps the browser `lang`, page title, and PWA manifest aligned with the selected locale.
 
 ### Tech Stack
 - **Vue 3** + Composition API with `<script setup>` syntax
@@ -84,7 +85,8 @@ Wrapper around vue3-toastify for showing notifications.
 
 The app is configured as a PWA with `vite-plugin-pwa`:
 - Auto-update service workers on deploy
-- Manifest includes theme colors (purple: `#7c3aed`), icons, and standalone display mode
+- Locale-specific manifests live in `public/manifest-pt.webmanifest` and `public/manifest-en.webmanifest`
+- `main.js` keeps `document.documentElement.lang` and `document.title` in sync with the active language
 - **Required for production**: PNG icons in `/public/`:
   - `pwa-192x192.png`
   - `pwa-512x512.png`
@@ -115,6 +117,7 @@ Any property added to `DEFAULT_CONFIG` will automatically sync to localStorage v
 - **No build files in git**: The `/dist` folder is gitignored. Always run `npm run build` before deploying.
 - **Alias paths**: Vite is configured with `@` pointing to `src/` for cleaner imports (`@/components/DiceFace.vue` instead of `../../../components/DiceFace.vue`).
 - **Mobile-first design**: All UI is optimized for portrait orientation on phones (see PWA manifest config).
+- Android app labels are localized through `android/app/src/main/res/values*/strings.xml`.
 
 ## Code Style Guideline (Mandatory)
 

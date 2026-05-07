@@ -12,7 +12,7 @@ Jogo de dado educativo e lúdico para crianças. PWA instalável no celular.
 - **Vite** + `vite-plugin-pwa`
 - **TailwindCSS** v3
 - **vue-router** v4
-- **i18n** com suporte a pt-BR e en-US
+- **i18n** com suporte a pt-BR e en-US, incluindo título da página, `lang` do HTML, manifesto PWA e nome do app Android por idioma
 - Config persistida no **localStorage**
 
 ---
@@ -66,6 +66,8 @@ O app detecta automaticamente o idioma do seu navegador e exibe:
 - **Inglês (en-US)** - Tradução completa fornecida
 
 Strings suportadas incluem modos de jogo, botões, rótulos da interface e todas as opções de configuração.
+
+O idioma selecionado também atualiza o título da aba, o atributo `lang` do HTML, o manifesto PWA ativo e o nome do app no Android.
 
 ---
 
