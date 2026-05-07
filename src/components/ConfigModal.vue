@@ -145,6 +145,28 @@ const COUNT_OPTIONS = computed(() => [
 
                 <!-- Conteudo scrollavel -->
                 <div class="overflow-y-auto px-6 py-5 space-y-6" style="max-height: calc(90vh - 140px)">
+                    <!-- Secao: Idioma -->
+                    <section>
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                            {{ t('common.language') }}
+                        </p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                v-for="lang in supportedLanguages"
+                                :key="lang.code"
+                                type="button"
+                                class="min-h-4 py-3 px-3 rounded-2xl border-2 transition-all duration-150 font-bold text-sm"
+                                :class="{
+                                    'border-blue-500 bg-blue-50 text-blue-700 shadow-sm': currentLanguage === lang.code,
+                                    'border-gray-200 hover:border-gray-300 bg-white text-gray-700':  currentLanguage !== lang.code,
+                                }"boraboreesds
+                                @click="setLanguage(lang.code)"
+                            >
+                                {{ lang.name }}
+                            </button>
+                        </div>
+                    </section>
+
                     <!-- Secao: Modo de jogo -->
                     <section>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
@@ -155,7 +177,7 @@ const COUNT_OPTIONS = computed(() => [
                                 v-for="opt in MODE_OPTIONS"
                                 :key="opt.value"
                                 type="button"
-                                class="flex flex-col items-center gap-1 p-3 rounded-2xl border-2 transition-all duration-150"
+                                class="flex flex-col items-center gap-1 p-3 px-2 rounded-2xl border-2 transition-all duration-150"
                                 :class="
                                     local.mode === opt.value
                                         ? 'shadow-md'
@@ -231,28 +253,6 @@ const COUNT_OPTIONS = computed(() => [
                                     :class="local.showItemsCounter ? 'translate-x-7' : 'translate-x-1'"
                                 />
                             </div>
-                        </div>
-                    </section>
-
-                    <!-- Secao: Idioma -->
-                    <section>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-                            {{ t('common.language') }}
-                        </p>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button
-                                v-for="lang in supportedLanguages"
-                                :key="lang.code"
-                                type="button"
-                                class="py-3 px-3 rounded-2xl border-2 transition-all duration-150 font-bold text-sm"
-                                :class="{
-                                    'border-blue-500 bg-blue-50 text-blue-700 shadow-sm': currentLanguage === lang.code,
-                                    'border-gray-200 hover:border-gray-300 bg-white text-gray-700':  currentLanguage !== lang.code,
-                                }"
-                                @click="setLanguage(lang.code)"
-                            >
-                                {{ lang.name }}
-                            </button>
                         </div>
                     </section>
 
