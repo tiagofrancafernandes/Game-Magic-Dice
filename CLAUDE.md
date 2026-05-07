@@ -103,10 +103,6 @@ If icons are missing, the PWA will not install properly on mobile. Use https://r
 ### Modify animations
 TailwindCSS custom animations are defined in `tailwind.config.js`:
 - `dice-shake`: 0.65s rotation + scale effect
-<!--
-# TODO: substituir animação `float` vertical por algo mais como rolling de dados ou simplesmente remover
-- `float`: Vertical bob animation
--->
 - `blob`: Organic blob morphing (used for background effects)
 
 Apply these with `class="animate-dice-shake"` or similar.

@@ -132,8 +132,8 @@ const modeBadge = computed(() => {
             @touchend.passive="onTouchEnd"
             @click="!isRolling && roll()"
         >
-            <!-- Dado com efeito de float suave quando parado -->
-            <div :class="{ 'animate-float': !isRolling }">
+            <!-- Dado com efeito de rolling (ainda inexistente ou será substituído pelo uso de lib como GSAP) suave quando parado -->
+            <div :class="{ 'animate-rolling': !isRolling }">
                 <DiceFace
                     :value="currentValue"
                     :mode="config.mode"

@@ -19,10 +19,6 @@ export default {
                     '80%': { transform: 'rotate(4deg) scale(1.02)' },
                     '90%': { transform: 'rotate(-2deg) scale(1.01)' },
                 },
-                float: {
-                    '0%, 100%': { transform: 'translateY(0px)' },
-                    '50%': { transform: 'translateY(-10px)' },
-                },
                 blob: {
                     '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
                     '33%': { transform: 'translate(20px, -20px) scale(1.05)' },
@@ -31,7 +27,6 @@ export default {
             },
             animation: {
                 'dice-shake': 'dice-shake 0.65s ease-in-out',
-                float: 'float 3s ease-in-out infinite',
                 blob: 'blob 8s ease-in-out infinite',
                 'blob-delay': 'blob 8s ease-in-out 2s infinite',
                 'blob-delay2': 'blob 8s ease-in-out 4s infinite',
