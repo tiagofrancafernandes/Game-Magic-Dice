@@ -3,6 +3,7 @@
 - **Framework**: Vue 3.5+ with Composition API
 - **Build Tool**: Vite
 - **Styling**: TailwindCSS v4
+- **Animation**: GSAP for the dice roll motion
 - **Routing**: Vue Router 4
 - **Code Style**: Prettier
 - **Localization**: pt-BR and en-US via `src/composables/useI18n.js`, with locale-aware document title, HTML lang, and PWA manifest selection

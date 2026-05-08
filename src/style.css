@@ -14,10 +14,12 @@
         overscroll-behavior: none;
         user-select: none;
         -webkit-user-select: none;
+        touch-action: none;
     }
 
     #app {
         height: 100%;
+        touch-action: none;
     }
 }
 

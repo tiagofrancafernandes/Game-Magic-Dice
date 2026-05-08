@@ -23,6 +23,7 @@ The app supports pt-BR and en-US, and keeps the browser `lang`, page title, and 
 - **Vue 3** + Composition API with `<script setup>` syntax
 - **Vite** v7 + `vite-plugin-pwa` for PWA capabilities
 - **TailwindCSS** v3 (⚠️ **NOT v4** — uses `bg-gradient-*` not `bg-linear-*`; uses full config file)
+- **GSAP** for the dice roll animation and motion timing
 - **vue-router** v4 (single route for now)
 - **@iconify/vue** for icon support
 - **vue3-toastify** for toast notifications
@@ -76,7 +77,7 @@ Manages all game configuration:
 - **`rollValue()`**: Returns a random value based on current mode
 
 #### `useDiceRoll()`
-Handles roll animation timing and state (likely manages the dice shake animation duration).
+Handles roll animation timing and state, coordinating the GSAP-driven dice spin and the value shuffle.
 
 #### `useToast()`
 Wrapper around vue3-toastify for showing notifications.

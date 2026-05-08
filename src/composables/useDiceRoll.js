@@ -5,44 +5,45 @@ export function useDiceRoll() {
     const { config, rollValue } = useDiceConfig();
 
     const currentValue = ref(rollValue());
+
+    const targetValue = ref(currentValue.value);
+
     const isRolling = ref(false);
-    const shakeKey = ref(0); // incrementado a cada roll para reiniciar a animacao CSS
+    const shakeKey = ref(0);
+    const rollForce = ref(24);
 
-    let timers = [];
+    function normalizeRollForce(force) {
+        const numericForce = Number(force);
 
-    function clearTimers() {
-        timers.forEach(clearTimeout);
-        timers = [];
+        if (Number.isNaN(numericForce)) {
+            return 24;
+        }
+
+        if (numericForce < 0) {
+            return 0;
+        }
+
+        if (numericForce > 100) {
+            return 100;
+        }
+
+        return numericForce;
     }
 
-    /**
-     * Inicia o efeito de rolar:
-     * - Fase rapida: troca valores a cada 60ms (6x)
-     * - Fase media:  troca a cada 120ms (4x)
-     * - Fase lenta:  troca a cada 220ms (3x)
-     * - Resultado final definido no ultimo tick
-     */
-    function roll() {
-        if (isRolling.value) return;
+    function roll(force = 24) {
+        if (isRolling.value) {
+            return;
+        }
 
-        clearTimers();
         isRolling.value = true;
+        targetValue.value = rollValue();
+        rollForce.value = normalizeRollForce(force);
         shakeKey.value++;
+    }
 
-        const phases = [...Array(6).fill(60), ...Array(4).fill(120), ...Array(3).fill(220)];
-
-        let elapsed = 0;
-
-        phases.forEach((delay, idx) => {
-            elapsed += delay;
-            const t = setTimeout(() => {
-                currentValue.value = rollValue();
-                if (idx === phases.length - 1) {
-                    isRolling.value = false;
-                }
-            }, elapsed);
-            timers.push(t);
-        });
+    function completeRoll() {
+        currentValue.value = targetValue.value;
+        isRolling.value = false;
     }
 
     // Quando o modo de jogo muda, re-rola automaticamente
@@ -51,6 +52,7 @@ export function useDiceRoll() {
         () => {
             if (!isRolling.value) {
                 currentValue.value = rollValue();
+                targetValue.value = currentValue.value;
             }
         }
     );
@@ -60,14 +62,18 @@ export function useDiceRoll() {
         () => {
             if (!isRolling.value && config.value.mode === 'custom') {
                 currentValue.value = rollValue();
+                targetValue.value = currentValue.value;
             }
         }
     );
 
     return {
         currentValue,
+        targetValue,
         isRolling,
         shakeKey,
+        rollForce,
         roll,
+        completeRoll,
     };
 }

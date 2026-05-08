@@ -32,7 +32,8 @@
     },
     "gameView": {
         "configButton": "Settings",
-        "touchHint": "Tap to roll 👆"
+        "touchHint": "Tap to roll 👆",
+        "forceLabel": "Force"
     },
     "configModal": {
         "title": "Settings",
