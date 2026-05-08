@@ -2,41 +2,18 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 
-import path from 'path';
 import { fileURLToPath, URL } from 'node:url';
+
 export default defineConfig({
     plugins: [
         vue(),
         VitePWA({
             registerType: 'autoUpdate',
+            manifest: false,
             includeAssets: ['dice.svg', 'apple-touch-icon.png'],
-            manifest: {
-                name: 'Dado Magico',
-                short_name: 'Dado',
-                description: 'Jogo de dado educativo e ludico para criancas',
-                theme_color: '#7c3aed',
-                background_color: '#4c1d95',
-                display: 'standalone',
-                orientation: 'portrait',
-                start_url: '/',
-                icons: [
-                    {
-                        src: 'pwa-192x192.png',
-                        sizes: '192x192',
-                        type: 'image/png',
-                    },
-                    {
-                        src: 'pwa-512x512.png',
-                        sizes: '512x512',
-                        type: 'image/png',
-                        // purpose: 'any maskable',
-                        purpose: 'maskable',
-                    },
-                ],
-            },
+            includeHtmlHeadLinks: false,
             workbox: {
                 cleanupOutdatedCaches: true,
-                // globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,webp,json,woff2,webmanifest}'],
             },
         }),

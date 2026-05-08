@@ -12,7 +12,7 @@ An educational and playful dice game for children. Progressive Web App (PWA) ins
 - **Vite** + `vite-plugin-pwa`
 - **TailwindCSS** v3
 - **vue-router** v4
-- **i18n** support for pt-BR and en-US
+- **i18n** support for pt-BR and en-US, including locale-aware page title, HTML `lang`, web manifest, and Android app name
 - Config persisted with **localStorage**
 
 ---
@@ -66,6 +66,8 @@ The app automatically detects your browser language and displays:
 - **English (en-US)** - Complete translation provided
 
 Supported strings include game modes, buttons, UI labels, and all configuration options.
+
+The selected language also updates the browser tab title, the `html lang` attribute, the active PWA manifest, and the Android app label.
 
 ---
 
